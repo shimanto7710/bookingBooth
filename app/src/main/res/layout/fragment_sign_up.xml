@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ * Created by Shimanto Ahmed on 11/6/22, 2:13 AM
+  ~ * Copyright (c) 2022.  All rights reserved.
+  ~ * Last modified: 11/6/22, 12:35 AM
+  ~
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_keyboard_backspace_24" />
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toBottomOf="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="32dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="0dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="27dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_black" />
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="50dp"
+                android:text="SignUp"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginRight="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSignUp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etUserNameLabel"
+                    style="@style/TextInputEditLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="User Name"
+                    app:expandedHintEnabled="false"
+                    app:hintTextColor="@color/secondaryText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUserName"
+                        style="@style/TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:paddingBottom="20dp"
+                        android:text="Mr. Banner Sharma"
+                        android:textColor="@color/primaryText"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="16dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/warningLabelOfUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="Wrong User Name"
+                    android:textColor="@color/warning_color"
+                    android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/etUserNameLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/etUserNameLabel" />
+
+                <ImageView
+                    android:id="@+id/warningImageOfUserName"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_baseline_error_24"
+                    android:textColor="@color/warning_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/warningLabelOfUserName"
+                    app:layout_constraintEnd_toStartOf="@+id/warningLabelOfUserName"
+                    app:layout_constraintTop_toTopOf="@+id/warningLabelOfUserName" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginRight="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutUserName">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etEmailLabel"
+                    style="@style/TextInputEditLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email Address"
+                    app:expandedHintEnabled="false"
+                    app:hintTextColor="@color/secondaryText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        style="@style/TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:paddingBottom="20dp"
+                        android:text="Banner00.D@gmail.com"
+                        android:textColor="@color/primaryText"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="16dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/warningLabelOfEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="Wrong Email"
+                    android:textColor="@color/warning_color"
+                    android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/etEmailLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/etEmailLabel" />
+
+                <ImageView
+                    android:id="@+id/warningImageOfEmail"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_baseline_error_24"
+                    android:textColor="@color/warning_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/warningLabelOfEmail"
+                    app:layout_constraintEnd_toStartOf="@+id/warningLabelOfEmail"
+                    app:layout_constraintTop_toTopOf="@+id/warningLabelOfEmail" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginRight="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutEmail">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etPassLabel"
+                    style="@style/TextInputEditLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    app:expandedHintEnabled="false"
+                    app:hintTextColor="@color/secondaryText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        style="@style/TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:inputType="textPassword"
+                        android:paddingBottom="20dp"
+                        android:text="Banner00.D@gmail.com"
+                        android:textColor="@color/primaryText"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="16dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/warningLabelOfPass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="Wrong Password"
+                    android:textColor="@color/warning_color"
+                    android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/etPassLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/etPassLabel" />
+
+                <ImageView
+                    android:id="@+id/warningImageOfPass"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_baseline_error_24"
+                    android:textColor="@color/warning_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/warningLabelOfPass"
+                    app:layout_constraintEnd_toStartOf="@+id/warningLabelOfPass"
+                    app:layout_constraintTop_toTopOf="@+id/warningLabelOfPass" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginRight="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutPass">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etPhoneLabel"
+                    style="@style/TextInputEditLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone"
+                    app:expandedHintEnabled="false"
+                    app:hintTextColor="@color/secondaryText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:prefixTextColor="@color/secondaryText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPhone"
+                        style="@style/TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:inputType="phone"
+                        android:paddingBottom="20dp"
+                        android:text="01686352645"
+                        android:textColor="@color/primaryText"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="16dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/warningLabelOfPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="Wrong Phone Number"
+                    android:textColor="@color/warning_color"
+                    android:textSize="11dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/etPhoneLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/etPhoneLabel" />
+
+                <ImageView
+                    android:id="@+id/warningImageOfPhone"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_baseline_error_24"
+                    android:textColor="@color/warning_color"
+                    app:layout_constraintBottom_toBottomOf="@+id/warningLabelOfPhone"
+                    app:layout_constraintEnd_toStartOf="@+id/warningLabelOfPhone"
+                    app:layout_constraintTop_toTopOf="@+id/warningLabelOfPhone" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--<TextView
+                android:id="@+id/tvForgotPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="50dp"
+                android:text="Forgot Password?"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />-->
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/button_off_white_bg"
+                android:elevation="0dp"
+                android:text="Login"
+                android:textColor="?attr/primary"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />
+
+            <View
+                android:id="@+id/firstLine"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/lineColor"
+                app:layout_constraintBottom_toBottomOf="@+id/tvOr"
+                app:layout_constraintEnd_toStartOf="@+id/tvOr"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvOr" />
+
+            <TextView
+                android:id="@+id/tvOr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:text="Or"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/secondLine"
+                app:layout_constraintStart_toEndOf="@+id/firstLine"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+            <View
+                android:id="@+id/secondLine"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/lineColor"
+                app:layout_constraintBottom_toBottomOf="@+id/tvOr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvOr"
+                app:layout_constraintTop_toTopOf="@+id/tvOr" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/signUpWithGoogleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/button_transparent_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvOr">
+
+                <ImageView
+                    android:id="@+id/iconGoogle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/google"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvLoginWithGoogle"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvLoginWithGoogle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login With Google"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@+id/iconGoogle"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvNotAMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="52dp"
+                android:text="Have an account? "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/tvJoinNow"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signUpWithGoogleLayout"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvJoinNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="52dp"
+                android:text="@string/login_ow"
+                android:textColor="?attr/primary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/tvNotAMember"
+                app:layout_constraintTop_toBottomOf="@+id/signUpWithGoogleLayout"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

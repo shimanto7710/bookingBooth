@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ * Created by Shimanto Ahmed on 11/6/22, 2:13 AM
+  ~ * Copyright (c) 2022.  All rights reserved.
+  ~ * Last modified: 11/6/22, 12:33 AM
+  ~
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/forgot_pass_dialog">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="16dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
+
+    <TextView
+        android:id="@+id/tvForgetPassLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please enter your Registered ID."
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="84dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgetPassLabel"/>
+
+    <TextView
+        android:id="@+id/tvSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="We will send a verification code to your registared email ID"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="46dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubTitle">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etEmailLabel"
+            style="@style/TextInputEditLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Address"
+            app:expandedHintEnabled="false"
+            app:hintTextColor="@color/secondaryText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="20dp"
+                android:text="Banner00.D@gmail.com"
+                android:textColor="@color/primaryText"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="16dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/warningLabelOfEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="Wrong Email"
+            android:textColor="@color/warning_color"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etEmailLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etEmailLabel" />
+
+        <ImageView
+            android:id="@+id/warningImageOfEmail"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_baseline_error_24"
+            android:textColor="@color/warning_color"
+            app:layout_constraintBottom_toBottomOf="@+id/warningLabelOfEmail"
+            app:layout_constraintEnd_toStartOf="@+id/warningLabelOfEmail"
+            app:layout_constraintTop_toTopOf="@+id/warningLabelOfEmail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutPassParent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="33dp"
+        app:layout_constraintTop_toBottomOf="@+id/layoutEmail"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPassLabel"
+                style="@style/TextInputEditLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="@color/secondaryText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:inputType="textPassword"
+                    android:paddingBottom="20dp"
+                    android:text="Banner00.D@gmail.com"
+                    android:textColor="@color/primaryText"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/warningLabelOfPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="Wrong Password"
+                android:textColor="@color/warning_color"
+                android:textSize="11dp"
+                app:layout_constraintBottom_toBottomOf="@+id/etPassLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/etPassLabel" />
+
+            <ImageView
+                android:id="@+id/warningImageOfPass"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_baseline_error_24"
+                android:textColor="@color/warning_color"
+                app:layout_constraintBottom_toBottomOf="@+id/warningLabelOfPass"
+                app:layout_constraintEnd_toStartOf="@+id/warningLabelOfPass"
+                app:layout_constraintTop_toTopOf="@+id/warningLabelOfPass" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutConfirmPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutPass">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etConfirmPassLabel"
+                style="@style/TextInputEditLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="@color/secondaryText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPassword"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:inputType="textPassword"
+                    android:paddingBottom="20dp"
+                    android:text="Banner00.D@gmail.com"
+                    android:textColor="@color/primaryText"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="16dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/warningLabelOfConfirmPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="Wrong Password"
+                android:textColor="@color/warning_color"
+                android:textSize="11dp"
+                app:layout_constraintBottom_toBottomOf="@+id/etConfirmPassLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/etConfirmPassLabel" />
+
+            <ImageView
+                android:id="@+id/warningImageOfConfirmPass"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_baseline_error_24"
+                android:textColor="@color/warning_color"
+                app:layout_constraintBottom_toBottomOf="@+id/warningLabelOfConfirmPass"
+                app:layout_constraintEnd_toStartOf="@+id/warningLabelOfConfirmPass"
+                app:layout_constraintTop_toTopOf="@+id/warningLabelOfConfirmPass" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginRight="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutPassParent">
+
+        <com.chaos.view.PinView
+            android:id="@+id/pinView"
+            style="@style/PinWidget.PinView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:cursorVisible="true"
+            android:hint="Hint."
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cursorColor="@color/black"
+            app:cursorWidth="2dp"
+            app:hideLineWhenFilled="true"
+            app:itemCount="4"
+            app:itemHeight="48dp"
+            app:itemRadius="6dp"
+            app:itemSpacing="20dp"
+            app:itemWidth="48dp"
+            android:itemBackground="?attr/pinBackground"
+            app:lineColor="@color/primary"
+            app:lineWidth="2dp"
+            app:viewType="rectangle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:text="Resend OTP in 0:27"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pinView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:text="@string/edit_email"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pinView"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/button_primary_bg"
+        android:elevation="0dp"
+        android:text="Next"
+        android:textColor="?attr/primary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutPin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

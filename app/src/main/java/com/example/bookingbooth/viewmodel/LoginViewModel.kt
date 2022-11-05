@@ -1,7 +1,7 @@
 /*
- *  Created by Shimanto Ahmed on 11/5/22, 11:23 PM
+ *  Created by Shimanto Ahmed on 11/6/22, 2:13 AM
  *  Copyright (c) 2022.  All rights reserved.
- *  Last modified: 11/5/22, 11:06 PM
+ *  Last modified: 11/6/22, 1:45 AM
  *
  */
 
@@ -58,5 +58,9 @@ class LoginViewModel @Inject constructor(
 
     fun test(){
         loginRepository.test("")
+    }
+
+    fun test2(){
+        loginRepository.test2("")
     }
 }

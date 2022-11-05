@@ -1,7 +1,7 @@
 /*
- *  Created by Shimanto Ahmed on 11/5/22, 11:23 PM
+ *  Created by Shimanto Ahmed on 11/6/22, 2:13 AM
  *  Copyright (c) 2022.  All rights reserved.
- *  Last modified: 11/5/22, 8:12 PM
+ *  Last modified: 11/6/22, 12:58 AM
  *
  */
 
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         loadHomeFragment()
     }
 
-    private fun loadHomeFragment(){
+    private fun loadHomeFragment() {
 
 //        var fragment: Fragment = LandingFragment.newInstance()
         val transaction = supportFragmentManager.beginTransaction()
@@ -49,11 +49,12 @@ class MainActivity : AppCompatActivity() {
         )
         transaction.commit()
 
-    /*supportFragmentManager.commit {
-            val homeFragment = LandingFragment.newInstance()
-            replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
-            setReorderingAllowed(true)
-            addToBackStack(getCanonicalName(homeFragment))
-        }*/
+        /*supportFragmentManager.commit {
+                val homeFragment = LandingFragment.newInstance()
+                replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
+                setReorderingAllowed(true)
+                addToBackStack(getCanonicalName(homeFragment))
+            }*/
     }
+
 }

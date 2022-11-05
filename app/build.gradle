@@ -62,6 +62,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.1'
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     annotationProcessor 'com.google.dagger:hilt-compiler:2.43.2'
 
@@ -84,6 +85,16 @@ dependencies {
 
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    // pin-field
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth'
 
     // testing dependencies
     testImplementation 'junit:junit:4.13.2'

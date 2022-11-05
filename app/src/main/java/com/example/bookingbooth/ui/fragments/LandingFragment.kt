@@ -1,25 +1,29 @@
 /*
- *  Created by Shimanto Ahmed on 11/5/22, 11:23 PM
+ *  Created by Shimanto Ahmed on 11/6/22, 2:13 AM
  *  Copyright (c) 2022.  All rights reserved.
- *  Last modified: 11/5/22, 10:16 PM
+ *  Last modified: 11/6/22, 1:45 AM
  *
  */
 
 package com.example.bookingbooth.ui.fragments
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.example.bookingbooth.utils.getCanonicalName
 import com.example.bookingbooth.viewmodel.LoginViewModel
 import com.google.firebase.database.DatabaseReference
+import com.rookie.bookingbooth.R
 import com.rookie.bookingbooth.databinding.FragmentLandingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LandingFragment : Fragment() {
+class LandingFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentLandingBinding? = null
     private val binding get() = _binding!!
@@ -34,20 +38,18 @@ class LandingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLandingBinding.inflate(layoutInflater)
-        loadLoginFragment()
+        binding.btnLogin.setOnClickListener(this)
+        /*loadLoginFragment()*/
         return binding.root
     }
 
-    private fun loadLoginFragment(){
-
-        loginViewModel.test()
-
-        /*requireActivity().supportFragmentManager.commit {
+    private fun loadLoginFragment() {
+        requireActivity().supportFragmentManager.commit {
             val homeFragment = LoginFragment.newInstance()
-            replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
+            add(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
             setReorderingAllowed(true)
             addToBackStack(getCanonicalName(homeFragment))
-        }*/
+        }
     }
 
     companion object {
@@ -55,4 +57,16 @@ class LandingFragment : Fragment() {
         fun newInstance() =
             LandingFragment().apply {}
     }
+
+    override fun onClick(p0: View?) {
+        when (p0?.id) {
+            R.id.btnLogin -> {
+//                loginViewModel.test()
+                loginViewModel.test2()
+                loadLoginFragment()
+            }
+        }
+    }
+
+
 }
