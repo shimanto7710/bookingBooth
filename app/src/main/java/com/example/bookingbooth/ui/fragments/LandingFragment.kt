@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.bookingbooth.viewmodel.LoginViewModel
+import com.google.firebase.database.DatabaseReference
 import com.rookie.bookingbooth.databinding.FragmentLandingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,12 +23,10 @@ class LandingFragment : Fragment() {
 
     private var _binding: FragmentLandingBinding? = null
     private val binding get() = _binding!!
-
     private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
