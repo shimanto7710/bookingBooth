@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    base theme-->
+    <color name="primary">#FF7658</color>
+    <color name="primary_dark">#E9E9E9</color>
+    <color name="accent">#E9E9E9</color>
+
+    <!--    light theme-->
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="primaryText">#4B4B4B</color>
+    <color name="secondaryText">#4B4B4B</color>
+    <color name="transparent">#00ffffff</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#414141</color>
+    <color name="lineColor">#414141</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="warning_color">#FF0000</color>
+    <color name="off_white">#E9E9E9</color>
+    <color name="pinBackground">#E9E9E9</color>
+
+    <color name="icons">#757575</color>
+
+    <!--    dark theme-->
+    <color name="dk_primary_text">#FFFFFF</color>
+    <color name="dk_secondary_text">#FFFFFF</color>
+    <color name="dk_icons">#FFFFFF</color>
+    <color name="dk_divider">#212121</color>
+
+    <color name="dk_background_1">#212121</color>
+    <color name="dk_background_2">#212121</color>
+    <color name="dk_on_background_1">#FFFFFF</color>
+
+    <color name="dk_text_title">#FFFFFF</color>
+    <color name="dk_text_subTitle">#FFFFFF</color>
+    <color name="dk_text_description">#FFFFFF</color>
+
+    <color name="dk_tag_text">#757575</color>
+    <color name="dk_tag_background">#FFFBEC</color>
+
+
+    <!--    others-->
+    <color name="contrast_light">#FFFBEC</color>
+    <color name="contrast_dark">#FFFBEC</color>
+
+    <color name="bottom_nav">#009688</color>
+
+    <color name="cellBackgroundPrimary">#FFFBEC</color>
+    <color name="cellTextPrimary">#808080</color>
+    <color name="login_text">#808080</color>
+
+</resources>

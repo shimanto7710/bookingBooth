@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ * Created by Shimanto Ahmed on 11/5/22, 1:29 PM
+  ~ * Copyright (c) 2022.  All rights reserved.
+  ~ * Last modified: 11/5/22, 1:28 PM
+  ~
+  -->
+
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>

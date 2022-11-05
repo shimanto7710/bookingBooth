@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string-array name="dummy_categories">
+
+        <item>এডভেঞ্চার</item>
+        <item>সাহিত্য</item>
+        <item>গল্প</item>
+        <item>কবিতা</item>
+        <item>উপন্যাস</item>
+
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+
+    <!-- settings-->
+    <string name="prefName">bookingBooth</string>
+    <string name="pfTheme">pfTheme</string>
+    <string name="pfLanguage">pfLanguage</string>
+
+    <string name="pfAbout">pfAbout</string>
+    <string name="pfDeveloper">pfDeveloper</string>
+
+    <string name="pfRate">pfRate</string>
+    <string name="pfShare">pfShare</string>
+    <string name="pfFeedback">pfFeedback</string>
+
+    <string name="pfDevOption">pfDevOption</string>
+    <string name="pfCatAdvanceSettings">pfCatAdvanceSettings</string>
+    <string name="pfResetAll">pfResetAll</string>
+
+    <!-- settings dev-->
+    <string name="pfIsPro">pfIsPro</string>
+
+
+    <!--mix-->
+    <string name="pfMoreApps">pfMoreApps</string>
+
+</resources>

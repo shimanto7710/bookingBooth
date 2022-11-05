@@ -1,0 +1,26 @@
+<resources>
+
+    <attr name="primaryText" format="reference|color" />
+    <attr name="primary" format="reference|color" />
+    <attr name="primary_dark" format="reference|color" />
+    <attr name="accent" format="reference|color" />
+    <attr name="pinBackground" format="reference|color" />
+<!--    <attr name="colorSecondaryText" format="reference|color" />
+    <attr name="colorIcon" format="reference|color" />
+    <attr name="colorDivider" format="reference|color" />
+
+    <attr name="colorBackground1" format="reference|color" />
+    <attr name="colorBackground2" format="reference|color" />
+    <attr name="colorOnBackground1" format="reference|color" />
+
+    <attr name="colorTextTitle" format="reference|color" />
+    <attr name="colorTextSubTitle" format="reference|color" />
+    <attr name="colorTextDescription" format="reference|color" />
+
+    <attr name="colorTagText" format="reference|color" />
+    <attr name="colorTagBackground" format="reference|color" />
+
+    <attr name="themeToolbar" format="reference" />
+    <attr name="themePopup" format="reference" />-->
+
+</resources>

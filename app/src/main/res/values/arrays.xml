@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themeColors" translatable="false">
+        <item>Blue</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="themes" translatable="false">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="language_list" translatable="false">
+        <item>English</item>
+        <item>বাংলা</item>
+    </string-array>
+
+</resources>
