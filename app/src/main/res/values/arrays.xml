@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ * Created by Shimanto Ahmed on 11/5/22, 11:23 PM
+  ~ * Copyright (c) 2022.  All rights reserved.
+  ~ * Last modified: 7/27/20, 7:22 PM
+  ~
+  -->
+
 <resources>
     <string-array name="themeColors" translatable="false">
         <item>Blue</item>

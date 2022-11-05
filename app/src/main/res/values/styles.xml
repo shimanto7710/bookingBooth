@@ -1,3 +1,10 @@
+<!--
+  ~ * Created by Shimanto Ahmed on 11/5/22, 11:23 PM
+  ~ * Copyright (c) 2022.  All rights reserved.
+  ~ * Last modified: 9/23/22, 5:32 AM
+  ~
+  -->
+
 <resources>
     <style name="AppThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
 

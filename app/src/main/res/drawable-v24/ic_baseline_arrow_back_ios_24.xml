@@ -1,3 +1,10 @@
+<!--
+  ~ * Created by Shimanto Ahmed on 11/5/22, 11:23 PM
+  ~ * Copyright (c) 2022.  All rights reserved.
+  ~ * Last modified: 9/23/22, 5:37 AM
+  ~
+  -->
+
 <vector android:autoMirrored="true" android:height="24dp"
     android:tint="#414141" android:viewportHeight="24"
     android:viewportWidth="24" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
