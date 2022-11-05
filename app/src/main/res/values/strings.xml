@@ -6,7 +6,7 @@
   -->
 
 <resources>
-    <!--    <string name="app_name">FCorp</string>-->
+        <string name="app_name">BookingBooth</string>
     <!-- TODO: Remove or change this placeholder text -->
     <!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 
