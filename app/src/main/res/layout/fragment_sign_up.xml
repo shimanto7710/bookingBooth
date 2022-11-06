@@ -328,7 +328,7 @@
                 android:background="@drawable/button_off_white_bg"
                 android:elevation="0dp"
                 android:text="Login"
-                android:textColor="?attr/primary"
+                android:textColor="@color/primary"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />
@@ -429,7 +429,7 @@
                 android:layout_marginRight="25dp"
                 android:layout_marginBottom="52dp"
                 android:text="@string/login_ow"
-                android:textColor="?attr/primary"
+                android:textColor="@color/primary"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"

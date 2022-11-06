@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ * Created by Shimanto Ahmed on 11/6/22, 2:13 AM
   ~ * Copyright (c) 2022.  All rights reserved.
   ~ * Last modified: 11/6/22, 12:35 AM
@@ -11,7 +10,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context="com.example.bookingbooth.ui.fragments.LoginFragment">
 
 
     <ImageView
@@ -19,7 +19,7 @@
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_keyboard_backspace_24" />
@@ -53,8 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
         android:layout_marginTop="48dp"
+        android:layout_marginRight="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLogin">
@@ -77,7 +77,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:paddingBottom="20dp"
-                android:text="Banner00.D@gmail.com"
+                android:text=""
                 android:textColor="@color/primaryText"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="16dp" />
@@ -114,8 +114,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
         android:layout_marginTop="36dp"
+        android:layout_marginRight="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutEmail">
@@ -140,7 +140,7 @@
                 android:layout_marginTop="5dp"
                 android:inputType="textPassword"
                 android:paddingBottom="20dp"
-                android:text="Banner00.D@gmail.com"
+                android:text=""
                 android:textColor="@color/primaryText"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="16dp" />
@@ -197,10 +197,11 @@
         android:background="@drawable/button_off_white_bg"
         android:elevation="0dp"
         android:text="Login"
-        android:textColor="?attr/primary"
+        android:textColor="@color/primary"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvForgotPass" />
+
 
     <View
         android:id="@+id/firstLine"
@@ -295,7 +296,7 @@
         android:layout_marginTop="13dp"
         android:layout_marginRight="25dp"
         android:text="@string/join_now"
-        android:textColor="?attr/primary"
+        android:textColor="@color/primary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"

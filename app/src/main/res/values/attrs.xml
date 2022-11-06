@@ -12,6 +12,7 @@
     <attr name="primary_dark" format="reference|color" />
     <attr name="accent" format="reference|color" />
     <attr name="pinBackground" format="reference|color" />
+    <attr name="colorBackground1" format="reference|color" />
 <!--    <attr name="colorSecondaryText" format="reference|color" />
     <attr name="colorIcon" format="reference|color" />
     <attr name="colorDivider" format="reference|color" />

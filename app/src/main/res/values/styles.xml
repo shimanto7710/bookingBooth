@@ -40,7 +40,7 @@
 
 <!--        <item name="android:fontFamily">@font/beyond_wonderland</item>-->
 <!--        <item name="fontFamily">@font/beyond_wonderland</item>-->
-
+        <item name="colorBackground1">@color/white</item>
         <item name="primaryText">@color/primary</item>
         <item name="primary">@color/primary</item>
         <item name="primary_dark">@color/primary</item>
@@ -55,7 +55,7 @@
 
 <!--        <item name="android:fontFamily">@font/beyond_wonderland</item>-->
 <!--        <item name="fontFamily">@font/beyond_wonderland</item>-->
-
+        <item name="colorBackground1">@color/dk_background_1</item>
         <item name="primaryText">@color/white</item>
         <item name="primary">@color/white</item>
         <item name="primary_dark">@color/white</item>

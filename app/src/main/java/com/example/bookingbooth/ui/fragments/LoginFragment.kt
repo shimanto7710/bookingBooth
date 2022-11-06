@@ -9,7 +9,9 @@ package com.example.bookingbooth.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +24,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -62,6 +63,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
         binding.btnLogin.setOnClickListener(this)
         binding.signUpWithGoogleLayout.setOnClickListener(this)
 
+        binding.warningImageOfEmail.visibility=View.GONE
+        binding.warningLabelOfEmail.visibility=View.GONE
+        binding.warningLabelOfPass.visibility=View.GONE
+        binding.warningImageOfPass.visibility=View.GONE
+
+
+
         mAuth = FirebaseAuth.getInstance()
 
         gso =
@@ -86,6 +94,15 @@ class LoginFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun loadHomeFragment() {
+        requireActivity().supportFragmentManager.commit {
+            val homeFragment = SignUpFragment.newInstance()
+            replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
+            setReorderingAllowed(true)
+            addToBackStack(getCanonicalName(homeFragment))
+        }
+    }
+
     companion object {
         @JvmStatic
         fun newInstance() =
@@ -95,8 +112,17 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnLogin -> {
-//                signInWithEmail()
-                checkSignInWithEmail()
+                if (isValidate()) {
+                    // default login check
+                    checkSignInWithEmail(
+                        binding.etEmail.text.toString(),
+                        binding.etPassword.text.toString()
+                    )
+                }
+
+//                signInWithEmail("shimanto7710@gmail.com", "12345678")
+
+//                checkSignInWithEmail()
 //                signIn()
                 /*PhoneAuthProvider.getInstance().verifyPhoneNumber(
                     "+88 01686352645", // Phone number to verify
@@ -111,39 +137,57 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 requireActivity().onBackPressed()
             }
             R.id.signUpWithGoogleLayout -> {
-
+                signInWithGmail()
             }
         }
     }
 
-    private fun signInWithEmail(){
-        mAuth=FirebaseAuth.getInstance()
+    private fun isValidate():Boolean{
+        var isEmailValid=true
+        var isPassValid=true
+        if (!isValidEmail(binding.etEmail.text.toString()) || binding.etEmail.text.toString().isNullOrEmpty()) {
+            binding.warningImageOfEmail.visibility = View.VISIBLE
+            binding.warningLabelOfEmail.visibility = View.VISIBLE
+            isEmailValid=false
+        }else{
+            binding.warningImageOfEmail.visibility = View.GONE
+            binding.warningLabelOfEmail.visibility = View.GONE
+            isEmailValid=true
+        }
 
-        mAuth!!.createUserWithEmailAndPassword("shimanto7710@gmail.com", "12345678").addOnCompleteListener {
-            if(it.isSuccessful){
-                Log.d("aaa", "user registered successfully")
+        if (binding.etPassword.text.toString().isNullOrEmpty() || binding.etPassword.text.toString().length < 6) {
+            binding.warningLabelOfPass.visibility = View.VISIBLE
+            binding.warningImageOfPass.visibility = View.VISIBLE
+            isPassValid=false
+        }else{
+            binding.warningLabelOfPass.visibility = View.GONE
+            binding.warningImageOfPass.visibility = View.GONE
+            isPassValid=true
+        }
+
+        if (!isPassValid || !isEmailValid){
+            return false
+        }
+
+        return true
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun checkSignInWithEmail(email: String, pass: String) {
+        mAuth!!.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(requireContext(), "Successfully Logged In", Toast.LENGTH_LONG).show()
                 loadSignUpFragment()
-            }else{
-                Log.d("aaa", "user registration failed")
+            } else {
+                Toast.makeText(requireContext(), "User Not Found", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun checkSignInWithEmail(){
-        mAuth!!.signInWithEmailAndPassword("shimanto7710@gmail.com","12345678").addOnCompleteListener{
-            if(it.isSuccessful){
-                Log.d("aaa", "Logged In")
-                Toast.makeText(requireContext(), "Logged In successful", Toast.LENGTH_SHORT)
-                    .show()
-                loadSignUpFragment()
-            }else{
-                Log.d("aaa", "user LoggedIn failed")
-            }
-        }
-    }
-
-
-    private fun signIn(){
+    private fun signInWithGmail() {
         val signInIntent = gsc!!.signInIntent
         startActivityForResult(signInIntent, 1000)
     }
@@ -154,18 +198,16 @@ class LoginFragment : Fragment(), View.OnClickListener {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 task.getResult(ApiException::class.java)
-                loadSignUpFragment()
+                loadHomeFragment()
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
                     .show()
-                Log.d("aaa", e.message.toString())
-                Log.d("aaa", e.cause.toString())
             }
         }
     }
 
 
-    private val callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks =
+    /*private val callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks =
         object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
@@ -209,14 +251,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
             OnCompleteListener<AuthResult?> { task ->
                 if (task.isSuccessful) {
                     //verification successful we will start the profile activity
-                    /*Toast.makeText(requireContext(), "Success", Toast.LENGTH_LONG).show()
+                    *//*Toast.makeText(requireContext(), "Success", Toast.LENGTH_LONG).show()
                     val i = Intent(requireContext(), SuccessActivity::class.java)
-                    startActivity(i)*/
+                    startActivity(i)*//*
                 } else {
                     Toast.makeText(requireContext(), "Failed", Toast.LENGTH_LONG).show()
                 }
             })
-    }
+    }*/
 
 
 }
