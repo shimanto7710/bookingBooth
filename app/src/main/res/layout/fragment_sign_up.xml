@@ -84,7 +84,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:paddingBottom="20dp"
-                        android:text="Mr. Banner Sharma"
+                        android:text="Shimanto Ahmed"
                         android:textColor="@color/primaryText"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="16dp" />
@@ -145,7 +145,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
                         android:paddingBottom="20dp"
-                        android:text="Banner00.D@gmail.com"
+                        android:text="shimanto7710@gmail.com"
                         android:textColor="@color/primaryText"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="16dp" />
@@ -208,7 +208,7 @@
                         android:layout_marginTop="5dp"
                         android:inputType="textPassword"
                         android:paddingBottom="20dp"
-                        android:text="Banner00.D@gmail.com"
+                        android:text="11111111"
                         android:textColor="@color/primaryText"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="16dp" />
@@ -318,7 +318,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/layoutPhone" />-->
 
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnSignup"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -327,7 +327,7 @@
                 android:layout_marginRight="25dp"
                 android:background="@drawable/button_off_white_bg"
                 android:elevation="0dp"
-                android:text="Login"
+                android:text="Signup"
                 android:textColor="@color/primary"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -355,7 +355,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@+id/secondLine"
                 app:layout_constraintStart_toEndOf="@+id/firstLine"
-                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+                app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
 
             <View
                 android:id="@+id/secondLine"
@@ -415,14 +415,14 @@
                 android:text="Have an account? "
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/tvJoinNow"
+                app:layout_constraintEnd_toStartOf="@+id/tvLoginNow"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signUpWithGoogleLayout"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
-                android:id="@+id/tvJoinNow"
+                android:id="@+id/tvLoginNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
@@ -440,6 +440,17 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <include
+        android:id="@+id/progressLayout"
+        layout="@layout/progress_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,13 +12,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bookingbooth.core.Constants
 import com.example.bookingbooth.di.FirebaseQualifier
+import com.example.bookingbooth.network.request.UserRequestModel
 import com.example.bookingbooth.repositories.LoginRepository
 import com.example.bookingbooth.repositories.LoginRepositorySql
 import com.example.bookingbooth.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import javax.inject.Inject
 
 @HiltViewModel
@@ -62,5 +65,63 @@ class LoginViewModel @Inject constructor(
 
     fun test2(){
         loginRepository.test2("")
+    }
+
+    private val _signUpResponse = MutableLiveData<Resource<Int>>()
+
+    val signupResponse : LiveData<Resource<Int>>
+        get() = _signUpResponse
+
+
+    fun signInWithEmail(email: String, password: String, userRequestModel: UserRequestModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if(loginRepository is LoginRepositorySql) {
+                _signUpResponse.postValue(Resource.Loading())
+            }
+            try {
+                val response = loginRepository.signUpWithEmail(email=email, pass=password, userRequestModel=userRequestModel)
+                val result = response.body()
+                val errorResult = response.errorBody()
+                if (response.isSuccessful && response.code() == 200 && result != null) {
+                    _signUpResponse.postValue(Resource.Success(result))
+                } /*else if (result!=null && result.status == Constants.KEY_FAILED) {
+                    _signUpResponse.postValue(Resource.Error(result.status))
+                }*/ else {
+                    val jObjError = JSONObject(response.errorBody()!!.charStream().readText())
+                    val errorMessage= jObjError.get("message")
+                    _signUpResponse.postValue(Resource.Error(errorMessage.toString()))
+                }
+            } catch (e: Exception) {
+                _signUpResponse.postValue(Resource.Error(e.message.toString()))
+            }
+        }
+    }
+
+    private val _createUserResponse = MutableLiveData<Resource<Int>>()
+    val createUserResponse : LiveData<Resource<Int>>
+        get() = _createUserResponse
+
+    fun createUser(userRequestModel: UserRequestModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if(loginRepository is LoginRepositorySql) {
+                _createUserResponse.postValue(Resource.Loading())
+            }
+            try {
+                val response = loginRepository.createUser(userRequestModel=userRequestModel)
+                val result = response.body()
+                val errorResult = response.errorBody()
+                if (response.isSuccessful && response.code() == 200 && result != null) {
+                    _createUserResponse.postValue(Resource.Success(result))
+                }/* else if (result!=null && result.status == Constants.KEY_FAILED) {
+                    _createUserResponse.postValue(Resource.Error(result.status))
+                }*/ else {
+                    val jObjError = JSONObject(response.errorBody()!!.charStream().readText())
+                    val errorMessage= jObjError.get("message")
+                    _createUserResponse.postValue(Resource.Error(errorMessage.toString()))
+                }
+            } catch (e: Exception) {
+                _createUserResponse.postValue(Resource.Error(e.message.toString()))
+            }
+        }
     }
 }

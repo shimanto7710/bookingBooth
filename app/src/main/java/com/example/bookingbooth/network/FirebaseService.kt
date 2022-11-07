@@ -11,7 +11,9 @@ import android.util.Log
 import android.widget.Toast
 import com.example.bookingbooth.core.Contextor
 import com.example.bookingbooth.di.FirebaseQualifier
+import com.example.bookingbooth.network.request.UserRequestModel
 import com.example.bookingbooth.network.response.UserModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.internal.model.CrashlyticsReport.Session.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,6 +23,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
+import retrofit2.Response
 
 
 class FirebaseService {
@@ -42,7 +48,7 @@ class FirebaseService {
     }
 
     public fun getData() {
-        var dbRef = database.getReference("users")
+        /*var dbRef = database.getReference("users")
 
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -76,6 +82,63 @@ class FirebaseService {
                     .show()
             }
 
-        })
+        })*/
+    }
+
+    suspend fun createUserWithEmail(
+        email: String,
+        pass: String,
+        userRequestModel: UserRequestModel
+    ): Response<Int> {
+        var aResponse = Response.success(404)
+        runBlocking {
+            var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+            var status = 404
+            kotlin.run {
+                mAuth!!.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        status = 200
+//                        createUser(userRequestModel=userRequestModel)
+                    }
+                }.addOnFailureListener {
+                    if (it.message?.contains("email address is already in use") == true) {
+                        status = 403
+                    } else if (it.message?.contains("network error") == true) {
+                        status = 400
+                    }
+                }.await()
+            }
+            launch(coroutineContext) {
+                aResponse = Response.success(status)
+            }
+        }
+
+        return aResponse
+    }
+
+    fun createUser(userRequestModel: UserRequestModel): Response<Int> {
+        var aResponse = Response.success(404)
+        runBlocking {
+            var status = 404
+            kotlin.run {
+                var dbRef = database.getReference("users")
+                try {
+                    var id = dbRef.push().key
+                    dbRef.child(id!!).setValue(userRequestModel).addOnCompleteListener {
+                        status = 200
+                    }.addOnFailureListener {
+                        status = 400
+                    }.await()
+                } catch (e: Exception) {
+                     status = 400
+                }
+            }
+
+            launch(coroutineContext) {
+                aResponse = Response.success(status)
+            }
+        }
+
+        return aResponse
     }
 }

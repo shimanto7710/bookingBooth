@@ -62,6 +62,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
         binding.btnBack.setOnClickListener(this)
         binding.btnLogin.setOnClickListener(this)
         binding.signUpWithGoogleLayout.setOnClickListener(this)
+        binding.tvJoinNow.setOnClickListener(this)
 
         binding.warningImageOfEmail.visibility=View.GONE
         binding.warningLabelOfEmail.visibility=View.GONE
@@ -76,11 +77,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(requireActivity(), gso!!)
 
-        val acct = GoogleSignIn.getLastSignedInAccount(requireContext())
+        /*val acct = GoogleSignIn.getLastSignedInAccount(requireContext())
         if (acct != null) {
             loadSignUpFragment()
 //            navigateToSecondActivity()
-        }
+        }*/
 
 
     }
@@ -118,6 +119,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         binding.etEmail.text.toString(),
                         binding.etPassword.text.toString()
                     )
+//                    loadSignUpFragment()
                 }
 
 //                signInWithEmail("shimanto7710@gmail.com", "12345678")
@@ -138,6 +140,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
             }
             R.id.signUpWithGoogleLayout -> {
                 signInWithGmail()
+            }
+            R.id.tvJoinNow -> {
+                loadSignUpFragment()
             }
         }
     }

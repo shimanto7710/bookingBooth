@@ -7,10 +7,13 @@
 
 package com.example.bookingbooth.repositories
 
+import com.example.bookingbooth.network.request.UserRequestModel
 import retrofit2.Response
 
 interface LoginRepository {
     suspend fun makeLoginRequest(loginRequest: String) : Response<String>
     fun test(loginRequest: String)
     fun test2(loginRequest: String)
+    suspend fun signUpWithEmail(email: String, pass: String, userRequestModel: UserRequestModel) : Response<Int>
+    suspend fun createUser(userRequestModel: UserRequestModel) : Response<Int>
 }

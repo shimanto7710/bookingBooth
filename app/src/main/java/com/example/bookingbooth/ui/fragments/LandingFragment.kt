@@ -62,7 +62,7 @@ class LandingFragment : Fragment(), View.OnClickListener {
         when (p0?.id) {
             R.id.btnLogin -> {
 //                loginViewModel.test()
-                loginViewModel.test2()
+//                loginViewModel.test2()
                 loadLoginFragment()
             }
         }

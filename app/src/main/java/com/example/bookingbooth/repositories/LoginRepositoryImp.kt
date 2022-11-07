@@ -7,13 +7,17 @@
 
 package com.example.bookingbooth.repositories
 
+import android.accounts.Account
 import android.util.Log
 import com.example.bookingbooth.network.ApiService
 import com.example.bookingbooth.network.FirebaseService
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.example.bookingbooth.network.request.UserRequestModel
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.tasks.await
 import retrofit2.Response
 import javax.inject.Inject
+
 
 class LoginRepositorySql @Inject constructor(
     private val apiService: ApiService
@@ -28,6 +32,14 @@ class LoginRepositorySql @Inject constructor(
     }
 
     override fun test2(loginRequest: String) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun signUpWithEmail(email: String, pass: String, userRequestModel: UserRequestModel): Response<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun createUser(userRequestModel: UserRequestModel): Response<Int> {
         TODO("Not yet implemented")
     }
 }
@@ -46,4 +58,13 @@ class LoginRepositoryFirebase() : LoginRepository {
     override fun test2(loginRequest: String) {
         FirebaseService().getData()
     }
+
+    override suspend fun signUpWithEmail(email: String, pass: String, userRequestModel: UserRequestModel): Response<Int> {
+        return FirebaseService().createUserWithEmail(email=email, pass=pass, userRequestModel=userRequestModel)
+    }
+
+    override suspend fun createUser(userRequestModel: UserRequestModel): Response<Int> {
+        return FirebaseService().createUser(userRequestModel = userRequestModel)
+    }
+
 }

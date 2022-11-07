@@ -1,0 +1,3 @@
+package com.example.bookingbooth.network.request
+
+data class UserRequestModel(var userName:String, var email:String, var passport:String, var phone:String, var imageUrl:String?=null)
