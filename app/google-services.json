@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "148999294414",
+    "project_id": "bookingbooth-c40cb",
+    "storage_bucket": "bookingbooth-c40cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148999294414:android:05719883379056d7466f9f",
+        "android_client_info": {
+          "package_name": "com.example.bookingbooth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148999294414-qin7d00u1560a6b7cs4lbl481u0t7va7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJUG7igoNZSE2YRlMREpSRHVTAot29TQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148999294414-qin7d00u1560a6b7cs4lbl481u0t7va7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
