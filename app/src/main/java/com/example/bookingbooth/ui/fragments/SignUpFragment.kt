@@ -16,12 +16,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.example.bookingbooth.network.request.UserRequestModel
+import com.example.bookingbooth.pref.SessionManager
 import com.example.bookingbooth.utils.*
 import com.example.bookingbooth.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -44,6 +44,9 @@ class SignUpFragment : Fragment(), View.OnClickListener {
     private val loginViewModel by viewModels<LoginViewModel>()
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
+    private var finalUserRequestModel=UserRequestModel()
+    private var isClickedOnLoginWithGmail=false
+    private var isWorking=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,16 +84,17 @@ class SignUpFragment : Fragment(), View.OnClickListener {
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(requireActivity(), gso!!)
 
-        val acct = GoogleSignIn.getLastSignedInAccount(requireContext())
+        /*val acct = GoogleSignIn.getLastSignedInAccount(requireContext())
         if (acct != null) {
             val personName = acct.displayName
             val personEmail = acct.email
             Log.d("aaa", "name $personName")
             Log.d("aaa", "email $personEmail")
-        }
+        }*/
         signOut()
         observeSignUpResponse()
         observeCreateUserResponse()
+        observeIsUserExistResponse()
     }
 
     fun signOut() {
@@ -111,11 +115,12 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                         var userRequestModel = UserRequestModel(
                             userName = binding.etUserName.text.toString(),
                             email = binding.etEmail.text.toString(),
-                            passport = binding.etPassword.text.toString(),
-                            phone = binding.etPhone.text.toString()
+                            password = binding.etPassword.text.toString(),
+                            phone = binding.etPhone.text.toString(),
+                            id=""
                         )
-                        loginViewModel.createUser(userRequestModel = userRequestModel)
-                        sendVerificationEmail()
+                        finalUserRequestModel=userRequestModel
+                        loginViewModel.isUserExist(userRequestModel.email?:"")
                     } else if (t.data == 403) {
                         "User Already Exist".toast(requireContext(), Toast.LENGTH_LONG)
                     } else {
@@ -149,10 +154,54 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                 is Resource.Success -> {
 //                    hideProgressBar()
                     if (t.data == 200) {
+                        if(isClickedOnLoginWithGmail){
+                            loadHomeFragment()
+                        }else{
+                            loadLoginFragment()
+                        }
+                    } else {
+                    }
+                }
+                is Resource.Error -> {
+//                    hideProgressBar()
+                    "${t.message}".toast(requireContext(), Toast.LENGTH_LONG)
+                }
+                is Resource.Empty -> {
+                    //do nothing
+                }
+            }
+        }
+    }
+
+    private fun observeIsUserExistResponse() {
+        loginViewModel.isUserExistResponse.observe(viewLifecycleOwner) { t ->
+            when (t) {
+                is Resource.Loading -> {
+//                    showProgressBar()
+                }
+                is Resource.Success -> {
+//                    hideProgressBar()
+                    var aa=isClickedOnLoginWithGmail
+                    var userRequestModel=t.data
+                    if(userRequestModel?.email.isNullOrEmpty()){
+                        if (isWorking){
+                            loginViewModel.createUser(userRequestModel = finalUserRequestModel)
+                        }
+                        if(!isClickedOnLoginWithGmail){
+                            sendVerificationEmail()
+                        }
+                    }else{
+                        if(isClickedOnLoginWithGmail){
+                            loadHomeFragment()
+                        }else{
+                            loadLoginFragment()
+                        }
+                    }
+                    /*if (t.data == 200) {
                         "User Created".toast(requireContext(), Toast.LENGTH_LONG)
                     } else {
                         "Failed to create a user".toast(requireContext(), Toast.LENGTH_LONG)
-                    }
+                    }*/
                 }
                 is Resource.Error -> {
 //                    hideProgressBar()
@@ -314,11 +363,12 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                     var userRequestModel = UserRequestModel(
                         userName = personName?:"Not Found",
                         email = personEmail?:"Not Found",
-                        passport = "Not Found",
-                        phone = "Not Found"
+                        password = "Not Found",
+                        phone = "Not Found",
+                        id=""
                     )
-                    loginViewModel.createUser(userRequestModel = userRequestModel)
-                    loadHomeFragment()
+                    finalUserRequestModel=userRequestModel
+                    loginViewModel.isUserExist(personEmail?:"")
                 }
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
@@ -328,6 +378,9 @@ class SignUpFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loadHomeFragment() {
+        isWorking=false
+        var sessionManager=SessionManager(requireContext())
+        sessionManager.setLoginStatus(true)
         requireActivity().supportFragmentManager.commit {
             val homeFragment = HomeFragment.newInstance()
             replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
@@ -336,10 +389,13 @@ class SignUpFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            SignUpFragment().apply {}
+    private fun loadLoginFragment() {
+        requireActivity().supportFragmentManager.commit {
+            val loginFragment = LoginFragment.newInstance()
+            replace(R.id.mainFragmentContainer, loginFragment, getCanonicalName(loginFragment))
+            setReorderingAllowed(true)
+            addToBackStack(getCanonicalName(loginFragment))
+        }
     }
 
     override fun onClick(v: View?) {
@@ -348,28 +404,26 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                 requireActivity().onBackPressed()
             }
             R.id.tvLoginNow -> {
-                requireActivity().supportFragmentManager.commit {
-                    val homeFragment = LoginFragment.newInstance()
-                    replace(
-                        R.id.mainFragmentContainer,
-                        homeFragment,
-                        getCanonicalName(homeFragment)
-                    )
-                    setReorderingAllowed(true)
-                    addToBackStack(getCanonicalName(homeFragment))
-                }
+                loadLoginFragment()
             }
             R.id.tvLoginWithGoogle -> {
+                isWorking=true
+                isClickedOnLoginWithGmail=true
                 signInWithGmail()
             }
             R.id.btnSignup -> {
+                isWorking=true
+                isClickedOnLoginWithGmail=false
                 if (isValidate()) {
                     var userRequestModel = UserRequestModel(
                         userName = binding.etUserName.text.toString(),
                         email = binding.etEmail.text.toString(),
-                        passport = binding.etPassword.text.toString(),
-                        phone = binding.etPhone.text.toString()
+                        password = binding.etPassword.text.toString(),
+                        phone = binding.etPhone.text.toString(),
+                        imageUrl = "",
+                        id = ""
                     )
+                    finalUserRequestModel=userRequestModel
                     loginViewModel.signInWithEmail(
                         email = binding.etEmail.text.toString(),
                         password = binding.etPassword.text.toString(),
@@ -378,5 +432,11 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            SignUpFragment().apply {}
     }
 }

@@ -42,4 +42,5 @@ class HomeFragment : Fragment() {
                 arguments = Bundle().apply {}
             }
     }
+
 }

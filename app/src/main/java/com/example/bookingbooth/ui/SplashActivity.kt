@@ -71,5 +71,6 @@ class SplashActivity : AppCompatActivity() {
         if (bundle != null)
             intent.putExtras(bundle)
         startActivity(intent)
+        finish()
     }
 }

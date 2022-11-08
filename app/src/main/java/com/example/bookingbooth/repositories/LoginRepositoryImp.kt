@@ -42,6 +42,10 @@ class LoginRepositorySql @Inject constructor(
     override suspend fun createUser(userRequestModel: UserRequestModel): Response<Int> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun isUserAlreadyExist(email: String): Response<UserRequestModel> {
+        TODO("Not yet implemented")
+    }
 }
 
 class LoginRepositoryFirebase() : LoginRepository {
@@ -65,6 +69,10 @@ class LoginRepositoryFirebase() : LoginRepository {
 
     override suspend fun createUser(userRequestModel: UserRequestModel): Response<Int> {
         return FirebaseService().createUser(userRequestModel = userRequestModel)
+    }
+
+    override suspend fun isUserAlreadyExist(email: String): Response<UserRequestModel> {
+        return FirebaseService().isUserIsAlreadyExist(email)
     }
 
 }

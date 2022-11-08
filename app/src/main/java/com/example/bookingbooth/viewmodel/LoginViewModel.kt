@@ -18,6 +18,7 @@ import com.example.bookingbooth.network.request.UserRequestModel
 import com.example.bookingbooth.repositories.LoginRepository
 import com.example.bookingbooth.repositories.LoginRepositorySql
 import com.example.bookingbooth.utils.Resource
+import com.google.firebase.crashlytics.internal.model.CrashlyticsReport.Session.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -121,6 +122,34 @@ class LoginViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 _createUserResponse.postValue(Resource.Error(e.message.toString()))
+            }
+        }
+    }
+
+    private val _isUserExistResponse = MutableLiveData<Resource<UserRequestModel>>()
+    val isUserExistResponse : LiveData<Resource<UserRequestModel>>
+        get() = _isUserExistResponse
+
+    fun isUserExist(email: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if(loginRepository is LoginRepositorySql) {
+                _isUserExistResponse.postValue(Resource.Loading())
+            }
+            try {
+                val response = loginRepository.isUserAlreadyExist(email=email)
+                val result = response.body()
+                val errorResult = response.errorBody()
+                if (response.isSuccessful && response.code() == 200 && result != null) {
+                    _isUserExistResponse.postValue(Resource.Success(result))
+                }/* else if (result!=null && result.status == Constants.KEY_FAILED) {
+                    _isUserExistResponse.postValue(Resource.Error(result.status))
+                }*/ else {
+                    val jObjError = JSONObject(response.errorBody()!!.charStream().readText())
+                    val errorMessage= jObjError.get("message")
+                    _isUserExistResponse.postValue(Resource.Error(errorMessage.toString()))
+                }
+            } catch (e: Exception) {
+                _isUserExistResponse.postValue(Resource.Error(e.message.toString()))
             }
         }
     }

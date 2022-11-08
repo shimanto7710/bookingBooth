@@ -23,10 +23,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import retrofit2.Response
+import java.util.concurrent.Semaphore
 
 
 class FirebaseService {
@@ -124,6 +124,7 @@ class FirebaseService {
                 var dbRef = database.getReference("users")
                 try {
                     var id = dbRef.push().key
+                    userRequestModel.id=id!!
                     dbRef.child(id!!).setValue(userRequestModel).addOnCompleteListener {
                         status = 200
                     }.addOnFailureListener {
@@ -141,4 +142,43 @@ class FirebaseService {
 
         return aResponse
     }
+
+    suspend fun isUserIsAlreadyExist(email: String) :Response<UserRequestModel> {
+        var userRequestModel:UserRequestModel?=UserRequestModel()
+        var aResponse = Response.success(userRequestModel)
+        // create a java.util.concurrent.Semaphore with 0 initial permits
+        var semaphore: Semaphore = Semaphore(0)
+        runBlocking{
+            kotlin.run {
+//                var dbRef = database.getReference("users")
+                var dbRef = database.getReference("users").orderByChild("email")
+                    .equalTo(email)
+                dbRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            for (item in snapshot.children) {
+                                userRequestModel = item.getValue(UserRequestModel::class.java)
+                                semaphore.release()
+                            }
+                        }else{
+                            semaphore.release()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        semaphore.release()
+                    }
+                })
+            }
+
+            launch(coroutineContext) {
+                semaphore.acquire()
+                aResponse = Response.success(userRequestModel)
+            }
+
+        }
+        return aResponse
+    }
+
+
 }

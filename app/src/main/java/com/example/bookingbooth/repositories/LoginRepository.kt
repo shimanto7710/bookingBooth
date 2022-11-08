@@ -16,4 +16,5 @@ interface LoginRepository {
     fun test2(loginRequest: String)
     suspend fun signUpWithEmail(email: String, pass: String, userRequestModel: UserRequestModel) : Response<Int>
     suspend fun createUser(userRequestModel: UserRequestModel) : Response<Int>
+    suspend fun isUserAlreadyExist(email: String) : Response<UserRequestModel>
 }
