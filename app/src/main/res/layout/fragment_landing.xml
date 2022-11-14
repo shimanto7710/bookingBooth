@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/splash_bg" />
+        app:srcCompat="@drawable/sp4" />
 
     <ImageView
         android:id="@+id/logo"
@@ -43,16 +43,17 @@
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="25dp"
+        android:layout_height="50dp"
         android:layout_marginTop="60dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/color_button"
         android:text="Login"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
         app:layout_constraintTop_toBottomOf="@+id/gl_middle_horizontal"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:layout_editor_absoluteX="25dp" />
 
     <Button
         android:visibility="gone"
@@ -71,7 +72,7 @@
         android:id="@+id/tvSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:text="Skip"
         android:textColor="@color/white"
         android:textSize="17sp"
