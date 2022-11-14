@@ -77,7 +77,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:paddingBottom="20dp"
-                android:text=""
+                android:text="shimanto7710@gmail.com"
                 android:textColor="@color/primaryText"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="16dp" />
@@ -140,7 +140,7 @@
                 android:layout_marginTop="5dp"
                 android:inputType="textPassword"
                 android:paddingBottom="20dp"
-                android:text=""
+                android:text="111111"
                 android:textColor="@color/primaryText"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="16dp" />

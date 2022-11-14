@@ -18,14 +18,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
+import com.example.bookingbooth.network.request.UserRequestModel
+import com.example.bookingbooth.pref.SessionManager
+import com.example.bookingbooth.utils.Resource
 import com.example.bookingbooth.utils.getCanonicalName
+import com.example.bookingbooth.utils.toast
+import com.example.bookingbooth.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.rookie.bookingbooth.R
 import com.rookie.bookingbooth.databinding.FragmentLoginBinding
@@ -37,12 +40,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
     private var mVerificationId: String? = null
     private var mAuth: FirebaseAuth? = null
-
+    private var finalUserRequestModel=UserRequestModel()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
     var gso: GoogleSignInOptions? = null
     var gsc: GoogleSignInClient? = null
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,21 +87,24 @@ class LoginFragment : Fragment(), View.OnClickListener {
 //            navigateToSecondActivity()
         }*/
 
-
+        observeIsUserExistResponse()
+        observeCreateUserResponse()
     }
 
     private fun loadSignUpFragment() {
         requireActivity().supportFragmentManager.commit {
             val homeFragment = SignUpFragment.newInstance()
-            replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
+            add(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
             setReorderingAllowed(true)
             addToBackStack(getCanonicalName(homeFragment))
         }
     }
 
     private fun loadHomeFragment() {
+        var sessionManager=SessionManager(requireContext())
+        sessionManager.setLoginStatus(true)
         requireActivity().supportFragmentManager.commit {
-            val homeFragment = SignUpFragment.newInstance()
+            val homeFragment = HomeFragment.newInstance()
             replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
             setReorderingAllowed(true)
             addToBackStack(getCanonicalName(homeFragment))
@@ -147,6 +154,69 @@ class LoginFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun checkIfEmailVerified() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user!!.isEmailVerified) {
+            // user is verified, so you can finish this activity or send user to activity which you want.
+
+            Toast.makeText(requireContext(), "Successfully logged in", Toast.LENGTH_SHORT).show()
+            loadHomeFragment()
+        } else {
+            // email is not verified, so just prompt the message to the user and restart this activity.
+            // NOTE: don't forget to log out the user.
+            Toast.makeText(requireContext(), "Please Verify Your Email", Toast.LENGTH_SHORT).show()
+//            FirebaseAuth.getInstance().signOut()
+            sendVerificationEmail()
+
+            //restart this activity
+        }
+    }
+
+    private fun sendVerificationEmail() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.sendEmailVerification()
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // email sent
+                    // after email is sent just logout the user and finish this activity
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(
+                        requireContext(),
+                        "Verification email has been sent, Please check!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    requireActivity().supportFragmentManager.commit {
+                        val homeFragment = LoginFragment.newInstance()
+                        replace(
+                            R.id.mainFragmentContainer,
+                            homeFragment,
+                            getCanonicalName(homeFragment)
+                        )
+                        setReorderingAllowed(true)
+                        addToBackStack(getCanonicalName(homeFragment))
+                    }
+                } else {
+                    // email not sent, so display message and restart the activity or do whatever you wish to do
+                    Toast.makeText(
+                        requireContext(),
+                        "Verification email unable to send, try again letter",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    //restart this activity
+                    requireActivity().supportFragmentManager.commit {
+                        val homeFragment = LoginFragment.newInstance()
+                        replace(
+                            R.id.mainFragmentContainer,
+                            homeFragment,
+                            getCanonicalName(homeFragment)
+                        )
+                        setReorderingAllowed(true)
+                        addToBackStack(getCanonicalName(homeFragment))
+                    }
+                }
+            }
+    }
+
     private fun isValidate():Boolean{
         var isEmailValid=true
         var isPassValid=true
@@ -184,10 +254,67 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private fun checkSignInWithEmail(email: String, pass: String) {
         mAuth!!.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(requireContext(), "Successfully Logged In", Toast.LENGTH_LONG).show()
-                loadSignUpFragment()
+                Toast.makeText(requireContext(), "Successfully Logged In But Not Verified", Toast.LENGTH_LONG).show()
+                checkIfEmailVerified()
             } else {
                 Toast.makeText(requireContext(), "User Not Found", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun observeIsUserExistResponse() {
+        loginViewModel.isUserExistResponse.observe(viewLifecycleOwner) { t ->
+            when (t) {
+                is Resource.Loading -> {
+//                    showProgressBar()
+                }
+                is Resource.Success -> {
+//                    hideProgressBar()
+
+                    var userRequestModel = t.data
+                    if (userRequestModel?.email.isNullOrEmpty()) {
+                        loginViewModel.createUser(userRequestModel = finalUserRequestModel)
+                    } else {
+                        loadHomeFragment()
+                    }
+                    /*if (t.data == 200) {
+                        "User Created".toast(requireContext(), Toast.LENGTH_LONG)
+                    } else {
+                        "Failed to create a user".toast(requireContext(), Toast.LENGTH_LONG)
+                    }*/
+                }
+                is Resource.Error -> {
+//                    hideProgressBar()
+                    "${t.message}".toast(requireContext(), Toast.LENGTH_LONG)
+                }
+                is Resource.Empty -> {
+                    //do nothing
+                }
+            }
+        }
+    }
+
+    private fun observeCreateUserResponse() {
+        loginViewModel.createUserResponse.observe(viewLifecycleOwner) { t ->
+            when (t) {
+                is Resource.Loading -> {
+//                    showProgressBar()
+                }
+                is Resource.Success -> {
+//                    hideProgressBar()
+                    if (t.data == 200) {
+                            loadHomeFragment()
+                    } else {
+                        "User can not be created".toast(requireContext(), Toast.LENGTH_LONG)
+                    }
+                }
+                is Resource.Error -> {
+//                    hideProgressBar()
+                    "${t.message}".toast(requireContext(), Toast.LENGTH_LONG)
+                }
+                is Resource.Empty -> {
+                    //do nothing
+                }
             }
         }
     }
@@ -203,6 +330,22 @@ class LoginFragment : Fragment(), View.OnClickListener {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 task.getResult(ApiException::class.java)
+                val acct = GoogleSignIn.getLastSignedInAccount(requireContext())
+                if (acct != null) {
+                    val personName = acct.displayName
+                    val personEmail = acct.email
+                    Log.d("aaa", "name $personName")
+                    Log.d("aaa", "email $personEmail")
+                    var userRequestModel = UserRequestModel(
+                        userName = personName?:"Not Found",
+                        email = personEmail?:"Not Found",
+                        password = "Not Found",
+                        phone = "Not Found",
+                        id=""
+                    )
+                    finalUserRequestModel=userRequestModel
+                    loginViewModel.isUserExist(personEmail?:"")
+                }
                 loadHomeFragment()
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)

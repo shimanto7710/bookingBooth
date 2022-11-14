@@ -117,7 +117,9 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                             email = binding.etEmail.text.toString(),
                             password = binding.etPassword.text.toString(),
                             phone = binding.etPhone.text.toString(),
-                            id=""
+                            id="",
+                            imageUrl = "",
+                            type = 1
                         )
                         finalUserRequestModel=userRequestModel
                         loginViewModel.isUserExist(userRequestModel.email?:"")
@@ -365,7 +367,9 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                         email = personEmail?:"Not Found",
                         password = "Not Found",
                         phone = "Not Found",
-                        id=""
+                        id="",
+                        imageUrl = "",
+                        type = 1
                     )
                     finalUserRequestModel=userRequestModel
                     loginViewModel.isUserExist(personEmail?:"")
@@ -401,7 +405,8 @@ class SignUpFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnBack -> {
-                requireActivity().onBackPressed()
+//                requireActivity().onBackPressed()
+                loadLoginFragment()
             }
             R.id.tvLoginNow -> {
                 loadLoginFragment()
@@ -421,7 +426,8 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                         password = binding.etPassword.text.toString(),
                         phone = binding.etPhone.text.toString(),
                         imageUrl = "",
-                        id = ""
+                        id = "",
+                        type = 1
                     )
                     finalUserRequestModel=userRequestModel
                     loginViewModel.signInWithEmail(
