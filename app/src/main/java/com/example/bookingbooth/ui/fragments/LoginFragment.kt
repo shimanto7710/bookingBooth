@@ -10,7 +10,6 @@ package com.example.bookingbooth.ui.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.rookie.bookingbooth.R
 import com.rookie.bookingbooth.databinding.FragmentLoginBinding
@@ -35,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment(), View.OnClickListener {
 
-    private var mVerificationId: String? = null
+//    private var mVerificationId: String? = null
     private var mAuth: FirebaseAuth? = null
 
     private var _binding: FragmentLoginBinding? = null
@@ -70,18 +66,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
         binding.warningImageOfPass.visibility=View.GONE
 
 
-
         mAuth = FirebaseAuth.getInstance()
 
         gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(requireActivity(), gso!!)
-
-        /*val acct = GoogleSignIn.getLastSignedInAccount(requireContext())
-        if (acct != null) {
-            loadSignUpFragment()
-//            navigateToSecondActivity()
-        }*/
 
 
     }
@@ -119,13 +108,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         binding.etEmail.text.toString(),
                         binding.etPassword.text.toString()
                     )
-//                    loadSignUpFragment()
                 }
 
-//                signInWithEmail("shimanto7710@gmail.com", "12345678")
-
-//                checkSignInWithEmail()
-//                signIn()
+                // login with phone number
                 /*PhoneAuthProvider.getInstance().verifyPhoneNumber(
                     "+88 01686352645", // Phone number to verify
                     60, // Timeout duration
@@ -133,7 +118,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     requireActivity(), // Activity (for callback binding)
                     callbacks
                 )*/
-//                loadSignUpFragment()
             }
             R.id.btnBack -> {
                 requireActivity().onBackPressed()

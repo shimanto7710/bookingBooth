@@ -84,14 +84,8 @@ class SignUpFragment : Fragment(), View.OnClickListener {
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
         gsc = GoogleSignIn.getClient(requireActivity(), gso!!)
 
-        /*val acct = GoogleSignIn.getLastSignedInAccount(requireContext())
-        if (acct != null) {
-            val personName = acct.displayName
-            val personEmail = acct.email
-            Log.d("aaa", "name $personName")
-            Log.d("aaa", "email $personEmail")
-        }*/
-        signOut()
+
+//        signOut()
         observeSignUpResponse()
         observeCreateUserResponse()
         observeIsUserExistResponse()
@@ -258,6 +252,7 @@ class SignUpFragment : Fragment(), View.OnClickListener {
                 }
             }
     }
+
 
     private fun isValidate(): Boolean {
         var isEmailValid = true
