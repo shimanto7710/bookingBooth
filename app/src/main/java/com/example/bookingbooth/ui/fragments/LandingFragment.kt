@@ -13,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
+import com.example.bookingbooth.pref.SessionManager
 import com.example.bookingbooth.utils.getCanonicalName
 import com.rookie.bookingbooth.R
 import com.rookie.bookingbooth.databinding.FragmentLandingBinding
@@ -34,6 +36,7 @@ class LandingFragment : Fragment(), View.OnClickListener {
     ): View {
         _binding = FragmentLandingBinding.inflate(layoutInflater)
         binding.btnLogin.setOnClickListener(this)
+        binding.tvSkip.setOnClickListener(this)
         /*loadLoginFragment()*/
         return binding.root
     }
@@ -42,6 +45,17 @@ class LandingFragment : Fragment(), View.OnClickListener {
         requireActivity().supportFragmentManager.commit {
             val homeFragment = LoginFragment.newInstance()
             add(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
+            setReorderingAllowed(true)
+            addToBackStack(getCanonicalName(homeFragment))
+        }
+    }
+
+    private fun loadHomeFragment() {
+        var sessionManager= SessionManager(requireContext())
+        sessionManager.setLoginStatus(true)
+        requireActivity().supportFragmentManager.commit {
+            val homeFragment = HomeFragment.newInstance()
+            replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
             setReorderingAllowed(true)
             addToBackStack(getCanonicalName(homeFragment))
         }
@@ -57,6 +71,11 @@ class LandingFragment : Fragment(), View.OnClickListener {
         when (p0?.id) {
             R.id.btnLogin -> {
                 loadLoginFragment()
+            }
+            R.id.tvSkip -> {
+//                loginViewModel.test()
+//                loginViewModel.test2()
+                loadHomeFragment()
             }
         }
     }
