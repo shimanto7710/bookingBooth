@@ -21,6 +21,8 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.example.bookingbooth.network.request.UserRequestModel
 import com.example.bookingbooth.pref.SessionManager
+import com.example.bookingbooth.ui.HomeActivity
+import com.example.bookingbooth.ui.MainActivity
 import com.example.bookingbooth.utils.Resource
 import com.example.bookingbooth.utils.getCanonicalName
 import com.example.bookingbooth.utils.toast
@@ -98,12 +100,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private fun loadHomeFragment() {
         var sessionManager=SessionManager(requireContext())
         sessionManager.setLoginStatus(true)
-        requireActivity().supportFragmentManager.commit {
+        openActivity(HomeActivity::class.java, null)
+        /*requireActivity().supportFragmentManager.commit {
             val homeFragment = HomeFragment.newInstance()
             replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
             setReorderingAllowed(true)
             addToBackStack(getCanonicalName(homeFragment))
-        }
+        }*/
     }
 
     companion object {
@@ -342,6 +345,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     .show()
             }
         }
+    }
+
+    fun openActivity(mClass: Class<*>, bundle: Bundle?) {
+        val intent = Intent(requireContext(), mClass)
+        if (bundle != null)
+            intent.putExtras(bundle)
+        startActivity(intent)
+
     }
 
 

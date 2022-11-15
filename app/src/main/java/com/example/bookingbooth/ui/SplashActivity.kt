@@ -45,7 +45,13 @@ class SplashActivity : AppCompatActivity() {
                 } catch (e: Exception) {
 //                    Log.e(TAG, "splashDelay: Sleep Didn't Work properly", e)
                 } finally {
-                    openActivity(MainActivity::class.java, null)
+                    if (sessionManager.isLoggedIn()){
+                        openActivity(HomeActivity::class.java, null)
+                    }else if(sessionManager.isSkipped()){
+                        openActivity(HomeActivity::class.java, null)
+                    }else{
+                        openActivity(MainActivity::class.java, null)
+                    }
                 }
             }
         }

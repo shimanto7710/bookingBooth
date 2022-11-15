@@ -22,6 +22,8 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.example.bookingbooth.network.request.UserRequestModel
 import com.example.bookingbooth.pref.SessionManager
+import com.example.bookingbooth.ui.HomeActivity
+import com.example.bookingbooth.ui.MainActivity
 import com.example.bookingbooth.utils.*
 import com.example.bookingbooth.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -380,12 +382,13 @@ class SignUpFragment : Fragment(), View.OnClickListener {
         isWorking=false
         var sessionManager=SessionManager(requireContext())
         sessionManager.setLoginStatus(true)
-        requireActivity().supportFragmentManager.commit {
+        openActivity(HomeActivity::class.java, null)
+        /*requireActivity().supportFragmentManager.commit {
             val homeFragment = HomeFragment.newInstance()
             replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
             setReorderingAllowed(true)
             addToBackStack(getCanonicalName(homeFragment))
-        }
+        }*/
     }
 
     private fun loadLoginFragment() {
@@ -439,5 +442,13 @@ class SignUpFragment : Fragment(), View.OnClickListener {
         @JvmStatic
         fun newInstance() =
             SignUpFragment().apply {}
+    }
+
+    fun openActivity(mClass: Class<*>, bundle: Bundle?) {
+        val intent = Intent(requireContext(), mClass)
+        if (bundle != null)
+            intent.putExtras(bundle)
+        startActivity(intent)
+
     }
 }

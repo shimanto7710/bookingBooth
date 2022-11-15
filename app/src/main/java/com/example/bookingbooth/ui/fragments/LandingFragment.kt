@@ -7,6 +7,7 @@
 
 package com.example.bookingbooth.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.example.bookingbooth.pref.SessionManager
+import com.example.bookingbooth.ui.HomeActivity
+import com.example.bookingbooth.ui.MainActivity
 import com.example.bookingbooth.utils.getCanonicalName
 import com.rookie.bookingbooth.R
 import com.rookie.bookingbooth.databinding.FragmentLandingBinding
@@ -62,12 +65,13 @@ class LandingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loadHomeFragment() {
-        requireActivity().supportFragmentManager.commit {
+        openActivity(HomeActivity::class.java, null)
+    /*requireActivity().supportFragmentManager.commit {
             val homeFragment = HomeFragment.newInstance()
             replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
             setReorderingAllowed(true)
             addToBackStack(getCanonicalName(homeFragment))
-        }
+        }*/
     }
 
     companion object {
@@ -90,5 +94,12 @@ class LandingFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    fun openActivity(mClass: Class<*>, bundle: Bundle?) {
+        val intent = Intent(requireContext(), mClass)
+        if (bundle != null)
+            intent.putExtras(bundle)
+        startActivity(intent)
+
+    }
 
 }
