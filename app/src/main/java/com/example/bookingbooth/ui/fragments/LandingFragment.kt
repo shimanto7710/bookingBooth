@@ -25,6 +25,7 @@ class LandingFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentLandingBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +36,20 @@ class LandingFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLandingBinding.inflate(layoutInflater)
-        binding.btnLogin.setOnClickListener(this)
-        binding.tvSkip.setOnClickListener(this)
+        init()
         /*loadLoginFragment()*/
         return binding.root
+    }
+
+    private fun init(){
+        sessionManager= SessionManager(requireContext())
+        binding.btnLogin.setOnClickListener(this)
+        binding.tvSkip.setOnClickListener(this)
+        if (sessionManager.isLoggedIn()){
+            loadHomeFragment()
+        }else if(sessionManager.isSkipped()){
+            loadHomeFragment()
+        }
     }
 
     private fun loadLoginFragment() {
@@ -51,8 +62,6 @@ class LandingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loadHomeFragment() {
-        var sessionManager= SessionManager(requireContext())
-        sessionManager.setLoginStatus(true)
         requireActivity().supportFragmentManager.commit {
             val homeFragment = HomeFragment.newInstance()
             replace(R.id.mainFragmentContainer, homeFragment, getCanonicalName(homeFragment))
@@ -75,6 +84,7 @@ class LandingFragment : Fragment(), View.OnClickListener {
             R.id.tvSkip -> {
 //                loginViewModel.test()
 //                loginViewModel.test2()
+                sessionManager.setSkipped(true)
                 loadHomeFragment()
             }
         }

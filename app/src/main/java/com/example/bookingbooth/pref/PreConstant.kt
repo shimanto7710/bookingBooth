@@ -23,6 +23,7 @@ enum class PreConstant {
     navOptionLast,
     isLearnedDrawer,
     isFirstOpen,
-    tooltip
+    tooltip,
+    skip
 
 }

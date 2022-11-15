@@ -77,13 +77,22 @@ class SessionManager (context: Context) {
     }
 
     fun isLoggedIn(): Boolean {
-        //return prefUtils.getBoolean(PreConstant.isLoggedIn.name, false)
-        return isAccessTokenExist()
+        return prefs.getBoolean(PreConstant.isLoggedIn.name, false)
+//        return isAccessTokenExist()
     }
 
     fun setLoginStatus(isLoggedIn: Boolean) {
         putBoolean(PreConstant.isLoggedIn.name, isLoggedIn)
 
+    }
+
+    fun isSkipped(): Boolean {
+        return prefs.getBoolean(PreConstant.skip.name, false)
+//        return isAccessTokenExist()
+    }
+
+    fun setSkipped(isSkipped: Boolean) {
+        putBoolean(PreConstant.isLoggedIn.name, isSkipped)
     }
 
     fun isAccessTokenExist(): Boolean {

@@ -23,6 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookingBooth"
         android:configChanges="locale"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
         tools:targetApi="31">
 
         <activity

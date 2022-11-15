@@ -149,7 +149,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
         if (user!!.isEmailVerified) {
             // user is verified, so you can finish this activity or send user to activity which you want.
 
-            Toast.makeText(requireContext(), "Successfully logged in", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Successfully logged In", Toast.LENGTH_SHORT).show()
             loadHomeFragment()
         } else {
             // email is not verified, so just prompt the message to the user and restart this activity.
@@ -244,7 +244,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private fun checkSignInWithEmail(email: String, pass: String) {
         mAuth!!.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(requireContext(), "Successfully Logged In But Not Verified", Toast.LENGTH_LONG).show()
+//                Toast.makeText(requireContext(), "Successfully Logged In But Not Verified", Toast.LENGTH_LONG).show()
                 checkIfEmailVerified()
             } else {
                 Toast.makeText(requireContext(), "User Not Found", Toast.LENGTH_LONG).show()
